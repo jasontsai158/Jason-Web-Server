@@ -10,7 +10,7 @@ require("./config/passport")(passport);
 const cors = require("cors");
 
 // connect to Render
-const port = process.env.PORT;
+//const port = process.env.PORT;
 // connect to DB
 mongoose
     .connect(process.env.DB_CONNECT, {
@@ -32,6 +32,8 @@ mongoose
   app.use("/api/user", authRoute);
   app.use("/api/courses", passport.authenticate("jwt", { session: false }), courseRoute);//這段程式碼是用於設定 Express 應用程式的中介軟體和路由處理器。它先使用 Passport.js 驗證 JWT 的身份，如果驗證通過，再將請求轉發給處理 "/api/courses" 路徑的路由處理器 courseRoute。這樣可以確保只有通過身份驗證的使用者才能訪問這個路徑，實現了對特定 API 的安全保護。//
 
-  app.listen(8080, () => {
-    console.log("Server running on port 8080.");
+ // app.listen(8080, () => {
+   // console.log("Server running on port 8080.");
+   app.listen(process.env.PORT || 8080, () => {
+    console.log(`Server running on port ${process.env.PORT || 8080}`);
   });
